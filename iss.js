@@ -2,7 +2,7 @@ const request = require('request');
 
 const numberToDate = (number) => {
   return new Date(number);
-}
+};
 
 //  retrieve users IP through API request
 const fetchMyIP = function(callback) {
