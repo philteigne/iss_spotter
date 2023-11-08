@@ -5,7 +5,6 @@ fetchMyIP((error, ip) => {
     console.log("It didn't work", error);
     return;
   }
-  const ipString = JSON.parse(ip);
 
-  console.log("It worked! Returned IP:", ipString.ip);
+  console.log("It worked! Returned IP:", ip);
 });
