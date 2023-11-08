@@ -10,12 +10,20 @@ const fetchMyIP = () => {
 
 const fetchCoordsByIP = (body) => {
   const ip = JSON.parse(body).ip;
-  return request(`http://ipwho.is/${ip}`);
+  return request(`http://ipwho.is/${ip}`, (error) => {
+    if (error) {
+      return error;
+    }
+  });
 };
 
 const fetchISSFlyOverTimes = (body) => {
   const coords = JSON.parse(body);
-  return request(`https://iss-flyover.herokuapp.com/json/?lat=${coords.latitude}&lon=${coords.longitude}`);
+  return request(`https://iss-flyover.herokuapp.com/json/?lat=${coords.latitude}&lon=${coords.longitude}`, (error) => {
+    if (error) {
+      return error;
+    }
+  });
 };
 
 const nextISSTimesForMyLocation = () => {
