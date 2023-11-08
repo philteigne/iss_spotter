@@ -36,7 +36,19 @@ const nextISSTimesForMyLocation = () => {
     });
 };
 
-module.exports = { nextISSTimesForMyLocation };
+// given an array of ISS pass time objects log them as a string to the console
+const logPassTimes = (array) => {
+  // only return the first 5 entries
+  if (array.length > 5) {
+    array.length = 5;
+  }
+  array.forEach(item => {
+    let timeOccur = new Date(item.risetime);
+    console.log(`Next pass at ${timeOccur} for ${item.duration} seconds!`);
+  });
+};
+
+module.exports = { nextISSTimesForMyLocation, logPassTimes };
 
 // http://ipwho.is/${ip}
 
