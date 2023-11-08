@@ -23,4 +23,29 @@ const fetchMyIP = function(callback) {
   // use request to fetch IP address from JSON API https://api.ipify.org?format=json
 };
 
-module.exports = { fetchMyIP };
+const fetchCoordsByIP = function(ip, callback) {
+  request(`http://ipwho.is/${42}`, (error, response, body) => {
+    if (error) {
+      callback(error, null);
+      return;
+    }
+
+    const locationParse = JSON.parse(body);
+
+    if (!locationParse.success) {
+      const msg = `Success status was ${locationParse.success}. Server message says: ${locationParse.message} when fetching for IP ${locationParse.ip}`;
+      callback(Error(msg), null);
+      return;
+    }
+
+    const locationObj = {
+      latitude: locationParse.latitude,
+      longitude: locationParse.longitude,
+    };
+
+    callback(error, locationObj);
+    return;
+  });
+};
+
+module.exports = { fetchMyIP, fetchCoordsByIP };
