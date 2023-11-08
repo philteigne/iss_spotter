@@ -1,5 +1,9 @@
 const request = require('request');
 
+const numberToDate = (number) => {
+  return new Date(number);
+}
+
 //  retrieve users IP through API request
 const fetchMyIP = function(callback) {
   request('https://api.ipify.org?format=json', (error, response, body) => {
@@ -67,4 +71,19 @@ const fetchISSFlyOverTimes = function(coords, callback) {
   });
 };
 
-module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
+const nextISSTimesForMyLocation = function(flyOverInfo, callback) {
+  if (flyOverInfo.length > 5) {
+    flyOverInfo.length = 5;
+  }
+
+  const flyOverDeclare = [];
+
+  flyOverInfo.forEach(element => flyOverDeclare.push(`Next pass at ${numberToDate(element.risetime)} for ${element.duration} seconds!`));
+
+  callback(flyOverDeclare);
+  return;
+};
+
+
+
+module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes, nextISSTimesForMyLocation };
